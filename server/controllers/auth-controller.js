@@ -3,53 +3,6 @@ const Resource = require("../models/resource-model");
 const FaultReport = require("../models/faultReport-model");
 const adminUser = require("../models/adminUser-model");
 
-//home controller logic
-// const home = async (req, res) => {
-//   try {
-//     res.status(200).send("Hi router from contro");
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-// const home = async (req, res) => {
-//   try {
-//       const user = req.user; // Get user details from the request object
-//       res.status(200).json({
-//           message: "Welcome to the home controller! The faculty user logged is :",
-//           user: {
-//               id: user._id,
-//               name: user.name,
-//               email: user.email,
-//               // Add any other user fields you want to return
-//           },
-//       });
-//   } catch (error) {
-//       console.log(error);
-//       res.status(500).json({ message: "Server error" });
-//   }
-// };
-// const home = async (req, res) => {
-//   try {
-//       const user = req.user; // Get user details from the request object
-
-//       // Fetch resources associated with the faculty user
-//       const resources = await Resource.find({ faculty: user._id }).populate('faculty');
-
-//       res.status(200).json({
-//           message: "Welcome to the home controller! The faculty user logged in is:",
-//           user: {
-//               id: user._id,
-//               name: user.name,
-//               email: user.email,
-//               // Add any other user fields you want to return
-//           },
-//           resources, // Add resources to the response
-//       });
-//   } catch (error) {
-//       console.log(error);
-//       res.status(500).json({ message: "Server error" });
-//   }
-// };
 
 //here in this we have the user logged in data as well as the resource details after resourceName is entered
 const home = async (req, res) => {
@@ -154,6 +107,10 @@ const user = (req, res) => {
 };
 
 const loginCheck = (req, res) => {
+  res.send({ data: "Already Login" });
+};
+
+const adminLoginCheck = (req, res) => {
   res.send({ data: "Already Login" });
 };
 
@@ -547,6 +504,7 @@ const reportResourceFault = async (req, res) => {
       resourceName,
       faultDescription,
       reportedBy: facultyName,
+      reportedAt: new Date(),
     });
 
     // Save the fault report
@@ -557,13 +515,44 @@ const reportResourceFault = async (req, res) => {
       faultReport,
     });
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     return res
-      .status(500)
+      .status(400)
       .json({ message: "Server error while reporting fault." });
   }
 };
 // fault report controller end
+
+// see all the faultReports submitted by particular faculty
+const getResourceFaultForFaculty = async (req,res) => {
+  try {
+    const facultyName = req.user.name;
+
+    const faultReports = await FaultReport.find({reportedBy : facultyName});
+
+    return res.status(200).json({
+      faultReports,
+    });
+
+  } catch (error) {
+    return res
+    .status(400)
+    .json({ message: "Server error while reporting fault." });
+}
+}
+
+
+
+// getting admin data
+const admin = (req, res) => {
+  try {
+    const adminData = req.user;
+    return res.status(200).json({ adminData });
+  } catch (error) {
+    console.log("Error while getting admin data through JWT", error);
+  }
+};
+
 
 //fault report update cotroller start
 const updateResourceFault = async (req, res) => {
@@ -608,7 +597,7 @@ const updateResourceFault = async (req, res) => {
 const adminRegister = async (req, res) => {
   try {
     // res.status(200).send("this is register controller");
-    console.log(req.body);
+    // console.log(req.body);
     const { name, email, password } = req.body;
     const adminUserExist = await adminUser.findOne({ email });
     if (adminUserExist) {
@@ -617,7 +606,7 @@ const adminRegister = async (req, res) => {
         .json({ message: "the admin user with this email already exists" });
     }
     const adminUserCreated = await adminUser.create({ name, email, password });
-    console.log(adminUserCreated);
+    // console.log(adminUserCreated);
     res.status(200).json({
       message: "registration done successfully!",
       token: await adminUserCreated.generateToken(),
@@ -676,4 +665,7 @@ module.exports = {
   getLabResource,
   getHallResource,
   getResources,
+  getResourceFaultForFaculty,
+  admin,
+  adminLoginCheck,
 };

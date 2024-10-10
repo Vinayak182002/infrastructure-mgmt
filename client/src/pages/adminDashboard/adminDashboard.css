@@ -1,0 +1,39 @@
+.admin-dashboard {
+  padding: 20px;
+  background-color: #f4f4f4; /* Light gray background */
+}
+
+.admin-dashboard h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.charts {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Space between charts */
+}
+
+.charts h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.chart-container {
+  overflow-x: auto; /* Allow horizontal scrolling */
+  padding: 10px;
+  border: 1px solid #ddd; /* Optional border for better visibility */
+  background-color: #fff; /* White background for charts */
+  border-radius: 8px; /* Rounded corners */
+}
+
+.chart-container canvas {
+  min-width: 600px; /* Minimum width for the chart */
+  max-width: 100%; /* Ensure chart doesn't overflow the container */
+}
+
+@media (min-width: 768px) {
+  .charts {
+    flex-direction: column; /* Keep charts stacked in larger screens */
+  }
+}

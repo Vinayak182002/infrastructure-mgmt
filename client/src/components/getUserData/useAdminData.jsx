@@ -4,20 +4,20 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { SERVERHOST } from '../../constant/constant';
 
-const useUserData = (authToken) => {
-  const [facUser, setFacUser] = useState({ name: '', email: '' });
+const useAdminData = (authToken) => {
+  const [admin, setAdmin] = useState({ name: '', email: '' });
   useEffect(() => {
-    const getUserData = async () => {
+    const getAdminData = async () => {
       try {
         const response = await axios.get(
-          `${SERVERHOST}/api/infra-mgmt-app/auth/user`,
+          `${SERVERHOST}/api/infra-mgmt-app/auth/admin`,
           {
             headers: { authorization: authToken },
           }
         );
-        setFacUser({
-          name: response.data.userData.name,
-          email: response.data.userData.email,
+        setAdmin({
+          name: response.data.adminData.name,
+          email: response.data.adminData.email,
         });
       } catch (error) {
         console.log(error);
@@ -25,11 +25,11 @@ const useUserData = (authToken) => {
     };
 
     if (authToken) {
-      getUserData();
+        getAdminData();
     }
   }, [authToken]);
 
-  return facUser;
+  return admin;
 };
 
-export default useUserData;
+export default useAdminData;

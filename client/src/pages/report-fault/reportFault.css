@@ -1,0 +1,61 @@
+.report-fault {
+    max-width: 600px; /* Increased width for better layout */
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+  
+  .report-fault h1 {
+    text-align: center;
+  }
+  
+  .fault-form label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .fault-form input,
+  .fault-form select,
+  .fault-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  .fault-form button {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .fault-form button:hover {
+    background-color: #0056b3;
+  }
+  
+  .fault-reports-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px; /* Add space between form and table */
+    margin-bottom: 50px;
+  }
+  
+  .fault-reports-table th,
+  .fault-reports-table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .fault-reports-table th {
+    background-color: #1f4e79;
+  color: white;
+  }
+  

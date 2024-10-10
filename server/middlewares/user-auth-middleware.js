@@ -42,9 +42,10 @@ if (req.headers && req.headers.authorization) {
 
 
 const authenticateAdmin = async (req, res, next) => {
-  const token = req.header("Authorization");
-  // console.log(token);
-  
+  let token = null;
+  if (req.headers && req.headers.authorization) {
+    token = req.headers.authorization;  
+  }
   if (!token) {
     // If you attempt to use an expired token, you'll receive a "401 Unauthorized HTTP" response.
     return res

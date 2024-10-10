@@ -1,9 +1,31 @@
 import React, { useEffect, useState } from 'react';
-// import { SERVERHOST } from '../../constant/constant';
 import { useNavigate } from 'react-router-dom';
 import useUserData from '../../components/getUserData/useUserData';
 import useResourceData from '../../components/getResourceData/useResourceData';
+import { SERVERHOST } from '../../constant/constant';
+import { toast } from 'react-toastify';
+import Modal from 'react-modal';
+import { Chart, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Pie } from 'react-chartjs-2';
 import './homePage.css'; // Import your CSS file for styling
+
+// Register necessary Chart.js components
+Chart.register(ArcElement, Tooltip, Legend);
+
+const PieChart = ({ totalSlots, bookedSlots }) => {
+  const data = {
+    labels: ['Booked', 'Free'],
+    datasets: [
+      {
+        data: [bookedSlots, totalSlots - bookedSlots],
+        backgroundColor: ['#1f4e79', '#00aaff'],
+        hoverBackgroundColor: ['#1f4e79', '#00aaff'],
+      },
+    ],
+  };
+
+  return <Pie data={data} />;
+};
 
 export default function HomePage() {
   const navigate = useNavigate();
@@ -20,6 +42,8 @@ export default function HomePage() {
   const [resourceType, setResourceType] = useState('');
   const [specificResource, setSpecificResource] = useState('');
   const [showTable, setShowTable] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [utilizationData, setUtilizationData] = useState({});
 
   const resourceOptions = {
     Classroom: allClassrooms.map((classroom) => classroom.name),
@@ -43,7 +67,6 @@ export default function HomePage() {
   };
 
   const handleBookingSubmit = (slot, day) => {
-    // Navigate to the booking form page, passing slot details and resource name
     navigate('/booking-slot', {
       state: {
         resourceName: resourceDetails.name,
@@ -55,9 +78,33 @@ export default function HomePage() {
     });
   };
 
+  const handleUtilizationClick = async () => {
+    // Fetch utilization data here using the specificResource or resourceDetails.name
+    try {
+      const response = await fetch(
+        `${SERVERHOST}/api/infra-mgmt-app/auth/calc-utilization-resource/${specificResource}`
+        // ` http://localhost:5000/api/infra-mgmt-app/auth/calc-utilization-resource/6101CR`
+      );
+      const data = await response.json();
+      if (response.ok) {
+        setUtilizationData(data);
+        setIsModalOpen(true);
+      } else {
+        // console.error(data.message);
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      console.error('Error fetching utilization data:', error);
+    }
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <div className="home-page">
-      <h1>Welcome,{facUser.name} </h1>
+      <h1>Welcome, {facUser.name}</h1>
 
       <form onSubmit={handleSubmit} className="resource-form">
         <label>
@@ -99,7 +146,8 @@ export default function HomePage() {
 
       {showTable && (
         <div className="timetable">
-          <h3>Timetable for {resourceDetails.name}</h3>
+          <h3>Timetable for {resourceDetails.name}</h3> 
+          <button className="util-btn" onClick={handleUtilizationClick}>Show Utilization</button>
           <table>
             <thead>
               <tr>
@@ -122,7 +170,7 @@ export default function HomePage() {
                             <div>[Class: {slot.yearOfStudents}]</div>
                           )}
                           {slot.divisionOfStudents && (
-                            <div>[Div{slot.divisionOfStudents}]</div>
+                            <div>[Div: {slot.divisionOfStudents}]</div>
                           )}
                           {slot.batchOfStudents && (
                             <div>[{slot.batchOfStudents}]</div>
@@ -155,6 +203,29 @@ export default function HomePage() {
           </table>
         </div>
       )}
+
+      {/* Utilization Modal */}
+      <div className='modal-popup'>
+        <Modal
+          isOpen={isModalOpen}
+          onRequestClose={closeModal}
+          ariaHideApp={false}
+        >
+          <h2>{utilizationData.resourceName}</h2>
+          <div className="pie-chart">
+            {' '}
+            {/* Add this class for styling */}
+            <PieChart
+              totalSlots={utilizationData.totalSlots}
+              bookedSlots={utilizationData.bookedSlots}
+            />
+          </div>
+          <p>
+            Utilization Percentage: {utilizationData.utilizationPercentage}
+          </p>
+          <button onClick={closeModal}>Close</button>
+        </Modal>
+      </div>
     </div>
   );
 }

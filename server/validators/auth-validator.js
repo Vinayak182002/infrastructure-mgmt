@@ -80,6 +80,20 @@ const bookingSchema = z.object({
     facultyName: z.string().min(1, "Faculty Name is required."),
 });
 
+// report fault schema
+const faultReportSchema = z.object({
+    resourceName: z.string().min(1, "Resource name is required."),
+    faultDescription: z.string().min(1, "Fault Description is required."),
+    reportedBy: z.string().min(1, "Faculty name is required."),
+    reportedAt: z.date().optional(), // This field is handled by Mongoose; can be omitted from the client input
+    status: z.enum(['Pending', 'In Progress', 'Resolved']).optional().default('Pending'), // Defaults to 'Pending'
+    resolutionDetails: z.object({
+        resolvedBy: z.string().optional(),
+        resolvedAt: z.date().optional(),
+        remarks: z.string().optional()
+    }).optional(), // Resolution details can be optional
+});
+
 //slot free zod schema
 const freeSlotSchema = z.object({
     resourceName: z.string().min(1, "Resource name is required."),
@@ -87,4 +101,4 @@ const freeSlotSchema = z.object({
     startTime: z.string().regex(/^\d{2}:\d{2}$/, "Start time must be in HH:MM format.")
 });
 // =======
-module.exports = {registerSchema , loginSchema, createResourceSchema, bookingSchema, freeSlotSchema};
+module.exports = {registerSchema , loginSchema, createResourceSchema, bookingSchema, freeSlotSchema, faultReportSchema};

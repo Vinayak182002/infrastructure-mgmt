@@ -4,7 +4,7 @@ import axios from 'axios'; // Don't forget to import axios
 import './navbar.css';
 import { SERVERHOST } from '../../constant/constant'; // Assuming SERVERHOST is defined in your constants file
 
-export default function Navbar() {
+export default function AdminNavbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate(); // To navigate after logout
   const location = useLocation(); // Get the current location
@@ -12,7 +12,7 @@ export default function Navbar() {
   const login_Check = async (authtoken) => {
     try {
       await axios.post(
-        `${SERVERHOST}/api/infra-mgmt-app/auth/login-check`,
+        `${SERVERHOST}/api/infra-mgmt-app/auth/admin-1987/login-check`,
         {},
         {
           headers: {
@@ -30,7 +30,8 @@ export default function Navbar() {
 
   useEffect(() => {
     const checkAuthToken = async () => {
-      const authtoken = localStorage.getItem('token');
+      const authtoken = localStorage.getItem('tokenAdmin');
+      console.log('Retrieved token:', authtoken);
       if (authtoken) {
         await login_Check(authtoken);
       } else {
@@ -42,34 +43,34 @@ export default function Navbar() {
 
   const handleLogout = () => {
     // Clear the token from local storage
-    localStorage.removeItem('token');
+    localStorage.removeItem('tokenAdmin');
 
     // Set isLoggedIn to false
     setIsLoggedIn(false);
 
     // Redirect the user to the login page
-    navigate('/login');
+    navigate('/admin-login');
   };
 
   return (
     <nav className="navbar">
-      <div className="navbar-brand">InfraMGMT</div>
+      <div className="navbar-brand">InfraMGMT-ADMIN</div>
       <ul className="navbar-links">
         {/* Show Register and Login links if user is not logged in */}
         {!isLoggedIn ? (
           <>
             <li>
               <a
-                href="/register"
-                className={location.pathname === '/register' ? 'active' : ''}
+                href="/admin-register"
+                className={location.pathname === '/admin-register' ? 'active' : ''}
               >
                 Register
               </a>
             </li>
             <li>
               <a
-                href="/login"
-                className={location.pathname === '/login' ? 'active' : ''}
+                href="/admin-login"
+                className={location.pathname === '/admin-login' ? 'active' : ''}
               >
                 Login
               </a>
@@ -79,29 +80,34 @@ export default function Navbar() {
           <>
             <li>
               <a
-                href="/dashboard"
-                className={location.pathname === '/dashboard' ? 'active' : ''}
+                href="/admin-dashboard"
+                className={location.pathname === '/admin-dashboard' ? 'active' : ''}
               >
                 Home
               </a>
             </li>
-
             <li>
               <a
-                href="/report-resource-fault"
-                className={
-                  location.pathname === '/report-resource-fault' ? 'active' : ''
-                }
+                href="/admin-classrooms"
+                className={location.pathname === '/admin-classrooms' ? 'active' : ''}
               >
-                Report Resource Fault
+                All Classrooms
               </a>
             </li>
             <li>
               <a
-                href="/profile"
-                className={location.pathname === '/profile' ? 'active' : ''}
+                href="/admin-labs"
+                className={location.pathname === '/admin-labs' ? 'active' : ''}
               >
-                Profile
+                All Labs
+              </a>
+            </li>
+            <li>
+              <a
+                href="/admin-halls"
+                className={location.pathname === '/admin-halls' ? 'active' : ''}
+              >
+                All Halls
               </a>
             </li>
             <li>

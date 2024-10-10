@@ -21,18 +21,15 @@
 /* Left side: Image */
 .admin-registration-image {
   flex: 1;
-  background-color: #f3f4f6;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden; /* Prevents overflow */
+  width:100%;
+  height:100%;
 }
 
 .admin-registration-image img {
   width: 100%;
-  height: 100%;
-  object-fit: cover; /* Ensures the image covers the container and doesn't overflow */
-  border-radius: 0; /* Ensures the image fits within the card without rounded edges */
+  height: 100%; 
+  object-fit:cover;
+  margin-top: 150px;
 }
 
 /* Right side: Form */
@@ -93,4 +90,22 @@
 
 .btn-submit:hover {
   background-color: #163a57;
+}
+
+
+.password-wrapper {
+  position: relative;
+}
+
+.password-wrapper input {
+  width: 100%;
+  padding-right: 30px; /* To prevent text overlap with the eye icon */
+}
+
+.eye-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px; /* Adjust the icon size */
 }

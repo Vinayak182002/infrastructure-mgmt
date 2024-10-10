@@ -69,3 +69,74 @@ th {
 tbody tr:hover {
   background-color: rgba(255, 255, 255, 0.2);
 }
+
+.util-btn {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding: 3px 3px;
+  background-color: #1f4e79;
+  color: white;
+  border: none;
+  border-radius: 4px;
+}
+
+/* Modal styles */
+
+/* .modal-popup{
+  max-height: 65vh;
+  margin-top: auto;
+  align-self: center;
+} */
+
+.ReactModal__Overlay {
+  background-color: rgba(0, 0, 0, 0.75); /* Dark overlay */
+  display: flex; /* Use flexbox to center the modal */
+  justify-content: center !important; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
+
+.ReactModal__Content {
+  background: white;
+  border-radius: 8px;
+  padding: 15px; /* Reduced padding */
+  width: 350px; /* Width of the modal */
+  max-width: 90%; /* Responsive */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  z-index: 1000; /* Ensure it’s on top of everything else */
+  overflow: auto; /* Allow scrolling if content is too long */
+  max-height: 65vh;
+  margin-top: auto;
+  align-content: center;
+}
+
+/* Header for modal */
+.ReactModal__Content h2 {
+  margin-bottom: 15px; /* Spacing below the header */
+  font-size: 1.5em;
+  text-align: center; /* Center text in modal header */
+}
+
+/* Pie chart container */
+.pie-chart {
+  width: 100%; /* Full width for responsiveness */
+  height: 200px; /* Fixed height for the pie chart */
+  max-height: 200px; /* Prevent exceeding this height */
+  align-items: center;
+}
+
+/* Close button */
+.ReactModal__Content button {
+  background-color: #007bff; /* Bootstrap primary color */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 1em;
+  display: block; /* Center button in modal */
+  margin: 0 auto; /* Center button */
+}
+
+.ReactModal__Content button:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+}

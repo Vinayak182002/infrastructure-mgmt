@@ -1,8 +1,7 @@
-// src/hooks/useResourceData.js
-
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { SERVERHOST } from '../../constant/constant';
+import { toast } from 'react-toastify';
 
 const useResourceData = () => {
   const [allClassrooms, setAllClassrooms] = useState([]);
@@ -14,45 +13,42 @@ const useResourceData = () => {
     type: '',
     weeklySchedule: [],
   });
+  const [utilizationData, setUtilizationData] = useState([]);
 
+  // Fetch classroom resources
   const getClassroomResources = async () => {
     try {
-      const response = await axios.get(
-        `${SERVERHOST}/api/infra-mgmt-app/auth/get-classrooms`
-      );
+      const response = await axios.get(`${SERVERHOST}/api/infra-mgmt-app/auth/get-classrooms`);
       setAllClassrooms(response.data.classroomDetails);
     } catch (error) {
       console.log(error);
     }
   };
 
+  // Fetch lab resources
   const getLabResources = async () => {
     try {
-      const response = await axios.get(
-        `${SERVERHOST}/api/infra-mgmt-app/auth/get-labs`
-      );
+      const response = await axios.get(`${SERVERHOST}/api/infra-mgmt-app/auth/get-labs`);
       setAllLabs(response.data.labDetails);
     } catch (error) {
       console.log(error);
     }
   };
 
+  // Fetch hall resources
   const getHallResources = async () => {
     try {
-      const response = await axios.get(
-        `${SERVERHOST}/api/infra-mgmt-app/auth/get-halls`
-      );
+      const response = await axios.get(`${SERVERHOST}/api/infra-mgmt-app/auth/get-halls`);
       setAllHalls(response.data.hallDetails);
     } catch (error) {
       console.log(error);
     }
   };
 
+  // Fetch detailed data of a specific resource
   const getResourceDetails = async (resourceName) => {
     try {
-      const response = await axios.get(
-        `${SERVERHOST}/api/infra-mgmt-app/auth/get-resource/${resourceName}`
-      );
+      const response = await axios.get(`${SERVERHOST}/api/infra-mgmt-app/auth/get-resource/${resourceName}`);
       setResourceDetails({
         capacity: response.data.resourceDetails.capacity,
         name: response.data.resourceDetails.name,
@@ -61,6 +57,17 @@ const useResourceData = () => {
       });
     } catch (error) {
       console.log('Error fetching resource details:', error);
+    }
+  };
+
+  // Fetch utilization data for a specific resource
+  const getUtilizationData = async (resourceName) => {
+    try {
+      const response = await axios.get(`${SERVERHOST}/api/infra-mgmt-app/auth/calc-utilization-resource/${resourceName}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching utilization data:', error);
+      throw error;
     }
   };
 
@@ -75,7 +82,9 @@ const useResourceData = () => {
     allLabs,
     allHalls,
     resourceDetails,
+    utilizationData,
     getResourceDetails,
+    getUtilizationData,
   };
 };
 

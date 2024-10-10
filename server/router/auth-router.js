@@ -21,17 +21,25 @@ router.route("/get-halls").get(authControllers.getHallResource);
 
 
 // accessed by only admin
+router.route("/admin-1987/admin").post(authenticateAdmin ,authControllers.admin);
+
 router.route("/free-slot").post(validate(zodSchema.freeSlotSchema), authenticateAdmin ,authControllers.freeSlot);
 
 
 
 router.route("/calc-utilization-resource/:resourceName").get(authControllers.calculateUtilization);
 
-router.route("/submit-fault-report").post(authenticate,authControllers.reportResourceFault);
+router.route("/submit-fault-report").post(validate(zodSchema.faultReportSchema) ,authenticate,authControllers.reportResourceFault);
+router.route("/get-resource-faults").post(authenticate,authControllers.getResourceFaultForFaculty);
+
+
+
+
 router.route("/update-fault-report").post(authControllers.updateResourceFault);
 
 router.route("/admin-1987/register").post(validate(zodSchema.registerSchema),authControllers.adminRegister);
 router.route("/admin-1987/login").post(validate(zodSchema.loginSchema),authControllers.adminLogin);
+router.route("/admin-1987/login-check").post(authenticateAdmin,authControllers.adminLoginCheck);
 
 
 module.exports = router;    

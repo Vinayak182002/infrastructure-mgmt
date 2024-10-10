@@ -1,8 +1,20 @@
 import React, { useState } from 'react';
 import './adminRegistration.css';
 import { useNavigate } from 'react-router-dom';
+import { SERVERHOST } from '../../constant/constant';
+import { toast } from 'react-toastify';
+import axios from 'axios';
+
 
 export default function AdminRegistration() {
+
+  // State to control password visibility
+  const [showPassword, setShowPassword] = useState(false);
+  // Toggle password visibility
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   const [admin, setAdmin] = useState({
     name: '',
     email: '',
@@ -38,17 +50,31 @@ export default function AdminRegistration() {
         }
       );
 
-      if (response.ok) {
+      if (response.request.statusText === "OK") {
         setAdmin({
           name: '',
           email: '',
           password: '',
         });
-
+        localStorage.setItem('tokenAdmin', response.data.token);
+        toast.success("Admin Registered Successfully!");
         navigate('/admin-login');
       }
     } catch (error) {
-      console.log('Registration mongo error', error);
+      if (error.response) {
+        if (error.response.status === 400) {
+          toast.error(
+            error.response.data.extraDetails || 'Invalid Credentials!'
+          );
+        } else if (error.response.status === 401) {
+          toast.error('Unauthorized! Check your credentials.');
+        } else {
+          toast.error('Something went wrong! Please try again.');
+        }
+      } else {
+        toast.error('Network error! Please check your connection.');
+      }
+      console.log('Registration', error);
     }
   };
 
@@ -94,15 +120,24 @@ export default function AdminRegistration() {
               </div>
               <div className="form-group">
                 <label htmlFor="password">Password</label>
-                <input
-                  type="password"
-                  id="password"
-                  className="form-control"
-                  placeholder="Enter your password"
-                  name="password"
-                  value={admin.password}
-                  onChange={handleInput}
-                />
+                <div className="password-wrapper">
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    id="password"
+                    name="password"
+                    className="form-control"
+                    placeholder="Enter your password"
+                    onChange={handleInput}
+                    value={admin.password}
+                  />
+                  <span
+                    className="eye-icon"
+                    onClick={togglePasswordVisibility}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    {showPassword ? '🤓' : '😎'}
+                  </span>
+                </div>
               </div>
               <button type="submit" className="btn-submit">
                 Register as Admin
