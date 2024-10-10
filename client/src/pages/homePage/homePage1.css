@@ -1,0 +1,38 @@
+.home-page {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .resource-form {
+    margin-bottom: 20px;
+  }
+  
+  .calendar-container {
+    margin-top: 20px;
+  }
+  
+  .fc-event {
+    cursor: pointer;
+    padding: 5px;
+  }
+  
+  .fc-event.booked {
+    background-color: #ffcccc;
+  }
+  
+  .fc-event.free {
+    background-color: #ccffcc;
+  }
+  
+  .fc-daygrid-event {
+    white-space: normal;
+    text-align: center;
+    border-radius: 5px;
+    padding: 4px;
+  }
+  
+  .fc-daygrid-event:hover {
+    background-color: #e6ffe6;
+    transition: background-color 0.3s ease;
+  }
+  

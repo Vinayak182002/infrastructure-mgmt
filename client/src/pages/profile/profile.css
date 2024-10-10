@@ -1,0 +1,91 @@
+.profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f4f8;
+  }
+  
+  .profile-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 400px;
+    text-align: center;
+  }
+  
+  .profile-header {
+    margin-bottom: 20px;
+  }
+  
+  .profile-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+  }
+  
+  .profile-header h2 {
+    font-size: 24px;
+    margin: 10px 0;
+    color: #333;
+  }
+  
+  .profile-role {
+    font-size: 16px;
+    color: #666;
+  }
+  
+  .profile-details {
+    margin-bottom: 20px;
+  }
+  
+  .detail-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .detail-item label {
+    font-weight: bold;
+    color: #444;
+  }
+  
+  .detail-item span {
+    color: #777;
+  }
+  
+  .profile-actions {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .btn-edit, .btn-logout {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .btn-edit {
+    background-color: #4caf50;
+    color: white;
+  }
+  
+  .btn-edit:hover {
+    background-color: #45a049;
+  }
+  
+  .btn-logout {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  .btn-logout:hover {
+    background-color: #e53935;
+  }
+  

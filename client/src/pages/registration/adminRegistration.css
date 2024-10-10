@@ -1,0 +1,96 @@
+/* Main container: Flexbox layout */
+.admin-registration-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #1f4e79 0%, #236a8f 100%);
+}
+
+/* Registration card for overall layout */
+.admin-registration-card {
+  display: flex;
+  max-width: 900px;
+  width: 100%;
+  background: white;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* Left side: Image */
+.admin-registration-image {
+  flex: 1;
+  background-color: #f3f4f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden; /* Prevents overflow */
+}
+
+.admin-registration-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the image covers the container and doesn't overflow */
+  border-radius: 0; /* Ensures the image fits within the card without rounded edges */
+}
+
+/* Right side: Form */
+.admin-registration-form {
+  flex: 1;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.admin-registration-form h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #666;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.form-control {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: #1f4e79;
+  outline: none;
+}
+
+/* Submit button styling */
+.btn-submit {
+  width: 100%;
+  padding: 12px;
+  background-color: #1f4e79;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-submit:hover {
+  background-color: #163a57;
+}
