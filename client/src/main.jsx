@@ -9,10 +9,10 @@ createRoot(document.getElementById('root')).render(
     <AppWrapper />
     <ToastContainer
       position="top-right"
-      autoClose={2000}
+      autoClose={1500}
       hideProgressBar={false}
       closeOnClick
-      rtl={false}
+      // rtl={false}
       pauseOnFocusLoss
       draggable
       pauseOnHover

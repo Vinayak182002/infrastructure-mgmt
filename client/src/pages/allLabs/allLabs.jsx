@@ -1,18 +1,15 @@
 import React, { useState, useRef } from 'react';
 import useResourceData from '../../components/getResourceData/useResourceData';
-import './allLabs.css'; // Ensure to create this CSS file
+import allLabsCSS from './allLabs.module.css'; // Import CSS Module
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const AllLabs = () => {
   const { allLabs } = useResourceData();
   const [searchTerm, setSearchTerm] = useState('');
   const [highlightedRow, setHighlightedRow] = useState(null);
   const rowRefs = useRef([]);
-
-  const handleEdit = (labId) => {
-    // Implement your edit logic here
-    console.log(`Edit lab with ID: ${labId}`);
-  };
+  const navigate = useNavigate();
 
   const handleSearch = () => {
     if (!searchTerm) {
@@ -40,22 +37,25 @@ const AllLabs = () => {
   };
 
   return (
-    <div className="container all-labs">
-      <h1>All Labs</h1>
-      <div className="search-container">
+    <div className={allLabsCSS['container']}>
+      <h1 className={allLabsCSS['title']}>All Labs</h1>
+      <div className={allLabsCSS['search-container']}>
         <input 
           type="text" 
           placeholder="Search by Lab Name" 
           value={searchTerm} 
           onChange={(e) => setSearchTerm(e.target.value)} 
+          className={allLabsCSS['search-input']}
         />
-        <button onClick={handleSearch}>Search</button>
+        <button onClick={handleSearch} className={allLabsCSS['search-button']}>
+          Search
+        </button>
       </div>
       {allLabs.length > 0 ? (
-        <table>
+        <table className={allLabsCSS['table']}>
           <thead>
             <tr>
-              <th>S.No</th> {/* Serial Number Column */}
+              <th>S.No</th>
               <th>Lab Name</th>
               <th>Capacity</th>
               <th>Action</th>
@@ -65,14 +65,19 @@ const AllLabs = () => {
             {allLabs.map((lab, index) => (
               <tr 
                 key={lab._id} 
-                className={highlightedRow === lab._id ? 'highlight' : ''}
+                className={highlightedRow === lab._id ? allLabsCSS['highlight'] : ''}
                 ref={el => rowRefs.current[index] = el} // Assign ref to each row
               >
-                <td>{index + 1}</td> {/* Serial Number */}
+                <td>{index + 1}</td>
                 <td>{lab.name}</td>
                 <td>{lab.capacity}</td>
                 <td>
-                  <button onClick={() => handleEdit(lab._id)}>Edit</button>
+                  <button 
+                    onClick={() => navigate(`/admin-update-resource/${lab.name}`)} 
+                    className={allLabsCSS['edit-button']}
+                  >
+                    Edit
+                  </button>
                 </td>
               </tr>
             ))}

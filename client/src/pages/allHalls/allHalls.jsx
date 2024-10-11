@@ -1,18 +1,15 @@
 import React, { useState, useRef } from 'react';
 import useResourceData from '../../components/getResourceData/useResourceData';
-import './allHalls.css'; // Ensure to create this CSS file
+import allHallsCSS from './allHalls.module.css'; // Import CSS Module
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const AllHalls = () => {
   const { allHalls } = useResourceData();
   const [searchTerm, setSearchTerm] = useState('');
   const [highlightedRow, setHighlightedRow] = useState(null);
   const rowRefs = useRef([]);
-
-  const handleEdit = (hallId) => {
-    // Implement your edit logic here
-    console.log(`Edit hall with ID: ${hallId}`);
-  };
+  const navigate = useNavigate();
 
   const handleSearch = () => {
     if (!searchTerm) {
@@ -40,22 +37,25 @@ const AllHalls = () => {
   };
 
   return (
-    <div className="container all-halls">
-      <h1>All Halls</h1>
-      <div className="search-container">
+    <div className={allHallsCSS['container']}>
+      <h1 className={allHallsCSS['title']}>All Halls</h1>
+      <div className={allHallsCSS['search-container']}>
         <input 
           type="text" 
           placeholder="Search by Hall Name" 
           value={searchTerm} 
           onChange={(e) => setSearchTerm(e.target.value)} 
+          className={allHallsCSS['search-input']}
         />
-        <button onClick={handleSearch}>Search</button>
+        <button onClick={handleSearch} className={allHallsCSS['search-button']}>
+          Search
+        </button>
       </div>
       {allHalls.length > 0 ? (
-        <table>
+        <table className={allHallsCSS['table']}>
           <thead>
             <tr>
-              <th>S.No</th> {/* Serial Number Column */}
+              <th>S.No</th>
               <th>Hall Name</th>
               <th>Capacity</th>
               <th>Action</th>
@@ -65,14 +65,19 @@ const AllHalls = () => {
             {allHalls.map((hall, index) => (
               <tr 
                 key={hall._id} 
-                className={highlightedRow === hall._id ? 'highlight' : ''}
+                className={highlightedRow === hall._id ? allHallsCSS['highlight'] : ''}
                 ref={el => rowRefs.current[index] = el} // Assign ref to each row
               >
-                <td>{index + 1}</td> {/* Serial Number */}
+                <td>{index + 1}</td>
                 <td>{hall.name}</td>
                 <td>{hall.capacity}</td>
                 <td>
-                  <button onClick={() => handleEdit(hall._id)}>Edit</button>
+                  <button 
+                    onClick={() => navigate(`/admin-update-resource/${hall.name}`)} 
+                    className={allHallsCSS['edit-button']}
+                  >
+                    Edit
+                  </button>
                 </td>
               </tr>
             ))}

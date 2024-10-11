@@ -3,7 +3,6 @@ const Resource = require("../models/resource-model");
 const FaultReport = require("../models/faultReport-model");
 const adminUser = require("../models/adminUser-model");
 
-
 //here in this we have the user logged in data as well as the resource details after resourceName is entered
 const home = async (req, res) => {
   try {
@@ -252,7 +251,7 @@ const createResource = async (req, res) => {
       weeklySchedule,
     });
 
-    return res.status(201).json({
+    return res.status(200).json({
       message: "Resource created successfully!",
       resource: newResource,
     });
@@ -265,6 +264,43 @@ const createResource = async (req, res) => {
 };
 
 // Creating resource controller end
+
+// updating the resource controller start
+
+const updateResource = async (req, res) => {
+  try {
+    const resourceName = req.params.resourceName || req.body.resourceName;
+
+    const resource = await Resource.findOne({ name: resourceName });
+
+    // Check if the resource exists
+    if (!resource) {
+      return res.status(400).json({ message: "Resource not found" });
+    }
+    const { name, type, capacity, weeklySchedule } = req.body;
+    if (name === resource.name) {
+      resource.name = resourceName;
+      resource.type = type;
+      resource.capacity = capacity;
+      resource.weeklySchedule = weeklySchedule;
+
+      await resource.save();
+      return res.status(200).json({
+        message: "Resource updated successfully!",
+        resource: resource,
+      });
+    } else {
+      return res.status(400).json({ message: "You are updating wron resource" });
+    }
+  } catch (error) {
+    console.error(error);
+    return res
+      .status(400)
+      .json({ message: "Server error while updating resource." });
+  }
+};
+
+// updating the resource controller end
 
 // Slot Booking controller start
 const bookSlot = async (req, res) => {
@@ -316,7 +352,7 @@ const bookSlot = async (req, res) => {
     slotToBook.isBooked = true;
 
     if (facultyName) slotToBook.facultyName = facultyName; // Only update if facultyName is provided
-    
+
     if (subject) slotToBook.subject = subject; // Update only if subject is provided
     if (yearOfStudents) slotToBook.yearOfStudents = yearOfStudents;
     if (divisionOfStudents) slotToBook.divisionOfStudents = divisionOfStudents;
@@ -328,7 +364,7 @@ const bookSlot = async (req, res) => {
     // Save the updated resource
     await resource.save();
 
-   // =====================
+    // =====================
     // Automatically unbook the slot after it has passed
     // Calculate when the slot should be freed
     // const currentDay = new Date().getDay(); // 0 = Sunday, 6 = Saturday
@@ -371,12 +407,11 @@ const bookSlot = async (req, res) => {
     return res
       .status(200)
       .json({ message: "Slot booked successfully!", resource });
-    
   } catch (error) {
     // console.error(error);
     return res
-    .status(400)
-    .json({ message: "Server error while booking slot." });
+      .status(400)
+      .json({ message: "Server error while booking slot." });
   }
 };
 // Slot Booking controller end
@@ -524,24 +559,21 @@ const reportResourceFault = async (req, res) => {
 // fault report controller end
 
 // see all the faultReports submitted by particular faculty
-const getResourceFaultForFaculty = async (req,res) => {
+const getResourceFaultForFaculty = async (req, res) => {
   try {
     const facultyName = req.user.name;
 
-    const faultReports = await FaultReport.find({reportedBy : facultyName});
+    const faultReports = await FaultReport.find({ reportedBy: facultyName });
 
     return res.status(200).json({
       faultReports,
     });
-
   } catch (error) {
     return res
-    .status(400)
-    .json({ message: "Server error while reporting fault." });
-}
-}
-
-
+      .status(400)
+      .json({ message: "Server error while reporting fault." });
+  }
+};
 
 // getting admin data
 const admin = (req, res) => {
@@ -553,13 +585,13 @@ const admin = (req, res) => {
   }
 };
 
-
 //fault report update cotroller start
 const updateResourceFault = async (req, res) => {
   try {
-    const { faultId, status, resolvedBy, remarks } = req.body;
+    const { faultId, resolvedBy, remarks } = req.body;
 
     // Find the fault report by ID
+    // console.log(faultId);
     const faultReport = await FaultReport.findById(faultId);
 
     if (!faultReport) {
@@ -567,8 +599,10 @@ const updateResourceFault = async (req, res) => {
     }
 
     // Update fault status and resolution details
-    faultReport.status = status || faultReport.status;
-    if (status === "Resolved") {
+    const status = faultReport.status;
+    
+    if (status === "Pending") {
+      faultReport.status = "Resolved",
       faultReport.resolutionDetails = {
         resolvedBy,
         resolvedAt: new Date(),
@@ -592,6 +626,32 @@ const updateResourceFault = async (req, res) => {
 };
 
 //fault report update cotroller end
+
+
+// get all resource faults
+//fault report update cotroller start
+const getResourceFaults = async (req, res) => {
+  try {
+    const faultReportsPending = await FaultReport.find({status : "Pending"});
+    const faultReportsResolved = await FaultReport.find({status : "Resolved"});
+
+    if (!faultReportsPending && !faultReportsResolved) {
+      return res.status(400).json({ message: "Fault reports not found." });
+    }
+    return res.status(200).json({
+      message: "Fault reports retreived successfully!",
+      faultReportsPending,
+      faultReportsResolved,
+    });
+  } catch (error) {
+    console.error(error);
+    return res
+      .status(500)
+      .json({ message: "Server error while updating fault status." });
+  }
+};
+
+
 
 // admin register controller logic
 const adminRegister = async (req, res) => {
@@ -668,4 +728,6 @@ module.exports = {
   getResourceFaultForFaculty,
   admin,
   adminLoginCheck,
+  updateResource,
+  getResourceFaults,
 };

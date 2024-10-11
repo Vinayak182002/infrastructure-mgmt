@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import axios from 'axios'; // Don't forget to import axios
-import './navbar.css';
-import { SERVERHOST } from '../../constant/constant'; // Assuming SERVERHOST is defined in your constants file
+import { useNavigate, useLocation, Link } from 'react-router-dom'; // Import Link for navigation
+import axios from 'axios';
+import navbarCSS from './navbar.module.css'; // Import the CSS module
+import { SERVERHOST } from '../../constant/constant';
+import { toast } from 'react-toastify';
 
 export default function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const navigate = useNavigate(); // To navigate after logout
-  const location = useLocation(); // Get the current location
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const login_Check = async (authtoken) => {
     try {
@@ -41,73 +42,82 @@ export default function Navbar() {
   }, [navigate]);
 
   const handleLogout = () => {
-    // Clear the token from local storage
     localStorage.removeItem('token');
-
-    // Set isLoggedIn to false
     setIsLoggedIn(false);
-
-    // Redirect the user to the login page
+    toast.success('Logged out successfully!');
     navigate('/login');
   };
 
   return (
-    <nav className="navbar">
-      <div className="navbar-brand">InfraMGMT</div>
-      <ul className="navbar-links">
+    <nav className={navbarCSS.navbar}> {/* Apply CSS module here */}
+      <div className={navbarCSS['navbar-brand']}>InfraMGMT</div>
+      <ul className={navbarCSS['navbar-links']}>
         {/* Show Register and Login links if user is not logged in */}
         {!isLoggedIn ? (
           <>
             <li>
-              <a
-                href="/register"
-                className={location.pathname === '/register' ? 'active' : ''}
+              <Link
+                to="/register"
+                className={location.pathname === '/register' ? navbarCSS.active : ''}
               >
                 Register
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="/login"
-                className={location.pathname === '/login' ? 'active' : ''}
+              <Link
+                to="/login"
+                className={location.pathname === '/login' ? navbarCSS.active : ''}
               >
                 Login
-              </a>
+              </Link>
             </li>
           </>
         ) : (
           <>
             <li>
-              <a
-                href="/dashboard"
-                className={location.pathname === '/dashboard' ? 'active' : ''}
+              <Link
+                to="/dashboard"
+                className={location.pathname === '/dashboard' ? navbarCSS.active : ''}
               >
                 Home
-              </a>
+              </Link>
             </li>
 
             <li>
-              <a
-                href="/report-resource-fault"
+              <Link
+                to="/report-resource-fault"
                 className={
-                  location.pathname === '/report-resource-fault' ? 'active' : ''
+                  location.pathname === '/report-resource-fault' ? navbarCSS.active : ''
                 }
               >
                 Report Resource Fault
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="/profile"
-                className={location.pathname === '/profile' ? 'active' : ''}
+              <Link
+                to="/profile"
+                className={location.pathname === '/profile' ? navbarCSS.active : ''}
               >
                 Profile
-              </a>
+              </Link>
             </li>
+
+            {/* Conditionally render "Booking Slot" link */}
+            {location.pathname === '/booking-slot' && (
+              <li>
+                <Link
+                  to="/booking-slot"
+                  className={location.pathname === '/booking-slot' ? navbarCSS.active : ''}
+                >
+                  Booking Slot
+                </Link>
+              </li>
+            )}
+
             <li>
-              <a onClick={handleLogout} style={{ cursor: 'pointer' }}>
+              <span onClick={handleLogout} style={{ cursor: 'pointer' }}>
                 Logout
-              </a>
+              </span>
             </li>
           </>
         )}

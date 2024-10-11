@@ -1,15 +1,13 @@
-// BookingFormPage.js
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { SERVERHOST } from '../../constant/constant';
-import './bookSlot.css';
+import bookSlotCSS from './bookSlot.module.css'; // Import the CSS module
 import { toast } from 'react-toastify';
 
 const BookingFormPage = () => {
   const navigate = useNavigate();
   const authToken = localStorage.getItem('token');
-  // console.log(authToken);
 
   if (!authToken) {
     navigate('/login');
@@ -47,20 +45,14 @@ const BookingFormPage = () => {
           },
         }
       );
-      // console.log(response);
       if (response.statusText === 'OK') {
         toast.success(response.data.message);
         navigate('/dashboard');
       } else {
         toast(response.message);
       }
-
-      // If the booking is successful, redirect to a confirmation page or show a success message
-      // history.push('/confirmation');
     } catch (error) {
-      // console.log(error);
       if (error.response) {
-        // Handling errors from the server response
         if (error.response.status === 400) {
           toast.error(
             error.response.data.extraDetails ||
@@ -73,14 +65,13 @@ const BookingFormPage = () => {
           toast.error('Something went wrong! Please try again.');
         }
       } else {
-        // Handle network or other errors
         toast.error('Network error! Please check your connection.');
       }
     }
   };
 
   return (
-    <div className="booking-form">
+    <div className={bookSlotCSS.bookingForm}>
       <h2>Booking the Slot</h2>
       <p>Note: The slot will be booked for this week only</p>
       <h3>Resource: {resourceName}</h3>
@@ -96,6 +87,7 @@ const BookingFormPage = () => {
             name="subject"
             value={bookingData.subject}
             onChange={handleInputChange}
+            className={bookSlotCSS.inputField}
           />
         </label>
         <label>
@@ -105,6 +97,7 @@ const BookingFormPage = () => {
             name="yearOfStudents"
             value={bookingData.yearOfStudents}
             onChange={handleInputChange}
+            className={bookSlotCSS.inputField}
           />
         </label>
         <label>
@@ -114,6 +107,7 @@ const BookingFormPage = () => {
             name="divisionOfStudents"
             value={bookingData.divisionOfStudents}
             onChange={handleInputChange}
+            className={bookSlotCSS.inputField}
           />
         </label>
         <label>
@@ -123,6 +117,7 @@ const BookingFormPage = () => {
             name="batchOfStudents"
             value={bookingData.batchOfStudents}
             onChange={handleInputChange}
+            className={bookSlotCSS.inputField}
           />
         </label>
         <label>
@@ -132,6 +127,7 @@ const BookingFormPage = () => {
             name="branchOfStudents"
             value={bookingData.branchOfStudents}
             onChange={handleInputChange}
+            className={bookSlotCSS.inputField}
           />
         </label>
         <label>
@@ -141,11 +137,14 @@ const BookingFormPage = () => {
             name="facultyName"
             value={bookingData.facultyName}
             onChange={handleInputChange}
+            className={bookSlotCSS.inputField}
             disabled
           />
         </label>
 
-        <button type="submit">Book Slot</button>
+        <button type="submit" className={bookSlotCSS.submitButton}>
+          Book Slot
+        </button>
       </form>
     </div>
   );

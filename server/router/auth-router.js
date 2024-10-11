@@ -10,7 +10,6 @@ router.route("/user").get(authenticate, authControllers.user);
 router.route("/home/:resourceName").post(authenticate,authControllers.home);
 router.route("/register").post(validate(zodSchema.registerSchema),authControllers.register);
 router.route("/login").post(validate(zodSchema.loginSchema),authControllers.login);
-router.route("/create-resource").post(validate(zodSchema.createResourceSchema),authControllers.createResource);
 router.route("/book-slot").post(validate(zodSchema.bookingSchema),authControllers.bookSlot);
 router.route("/login-check").post(authenticate,authControllers.loginCheck);
 router.route("/get-resource/:resourceName").get(authControllers.getResourceByName);
@@ -35,11 +34,14 @@ router.route("/get-resource-faults").post(authenticate,authControllers.getResour
 
 
 
-router.route("/update-fault-report").post(authControllers.updateResourceFault);
 
 router.route("/admin-1987/register").post(validate(zodSchema.registerSchema),authControllers.adminRegister);
 router.route("/admin-1987/login").post(validate(zodSchema.loginSchema),authControllers.adminLogin);
 router.route("/admin-1987/login-check").post(authenticateAdmin,authControllers.adminLoginCheck);
+router.route("/admin-1987/create-resource").post(validate(zodSchema.createResourceSchema),authControllers.createResource);
+router.route("/admin-1987/update-resource/:resourceName").post(validate(zodSchema.createResourceSchema),authControllers.updateResource);
+router.route("/admin-1987/resource-faults").post(authControllers.getResourceFaults);
+router.route("/admin-1987/update-fault-report/:id").post(authControllers.updateResourceFault);
 
 
 module.exports = router;    

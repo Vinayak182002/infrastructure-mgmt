@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './login.css';
+import loginCSS from './login.module.css';
 import axios from 'axios';
 import { SERVERHOST } from '../../constant/constant';
 import { toast } from 'react-toastify';
@@ -108,38 +108,38 @@ export default function Login() {
 
   return (
     <>
-      <div className="login-container user-login">
-        <div className="login-card">
-          <div className="login-image">
+     <div className={[loginCSS['login-container'], loginCSS['user-login']].join(' ')}>
+        <div className={loginCSS['login-card']}>
+          <div className={loginCSS['login-image']}>
             <img src="../../../public/images/login-image.png" alt="Login" />
           </div>
-          <div className="login-form">
+          <div className={loginCSS['login-form']}>
             <h2>User Login</h2>
             <form onSubmit={handleSubmit}>
-              <div className="form-group">
+              <div className={loginCSS['form-group']}>
                 <label>Email</label>
                 <input
                   name="email"
                   type="text"
-                  className="form-control"
+                  className={loginCSS['form-control']}
                   placeholder="Enter email"
                   value={facUser.email}
                   onChange={handleInput}
                 />
               </div>
-              <div className="form-group">
+              <div className={loginCSS['form-group']}>
                 <label>Password</label>
-                <div className="password-wrapper">
+                <div className={loginCSS['password-wrapper']}>
                   <input
                     type={showPassword ? 'text' : 'password'}
                     name="password"
-                    className="form-control"
+                    className={loginCSS['form-control']}
                     placeholder="Enter password"
                     value={facUser.password}
                     onChange={handleInput}
                   />
                   <span
-                    className="eye-icon"
+                      className={loginCSS['eye-icon']}
                     onClick={togglePasswordVisibility}
                     style={{ cursor: 'pointer' }}
                   >
@@ -147,7 +147,7 @@ export default function Login() {
                   </span>
                 </div>
               </div>
-              <button type="submit" className="btn-submit">
+              <button type="submit"   className={loginCSS['btn-submit']}>
                 User Login
               </button>
             </form>

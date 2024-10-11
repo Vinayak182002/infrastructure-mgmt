@@ -73,11 +73,34 @@ tbody tr:hover {
 .util-btn {
   margin-top: 5px;
   margin-bottom: 5px;
-  padding: 3px 3px;
+  padding: 5px 5px;
   background-color: #1f4e79;
   color: white;
   border: none;
   border-radius: 4px;
+  width: auto;
+}
+
+.submit-btn{
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding: 5px 5px;
+  background-color: #1f4e79;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  width: auto;
+}
+
+.book-btn{
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding: 5px 5px;
+  background-color: #1f4e79;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  width: auto;
 }
 
 /* Modal styles */

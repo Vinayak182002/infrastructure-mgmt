@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import useResourceData from '../../components/getResourceData/useResourceData';
 import useAdminData from '../../components/getAdminData/useAdminData';
-import './adminDashboard.css';
+import adminDashboardCSS from './adminDashboard.module.css';
 import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 
@@ -107,7 +107,7 @@ export default function AdminDashboard() {
     };
 
     return (
-      <div className="chart-container">
+      <div className={adminDashboardCSS['chart-container']}>
         <Bar data={data} options={options} />
       </div>
     );
@@ -117,10 +117,10 @@ export default function AdminDashboard() {
   if (error) return <div>Error: {error}</div>; // Show error state
 
   return (
-    <div className="admin-dashboard">
+    <div className={adminDashboardCSS['admin-dashboard']}>
       <h1>Welcome {admin.name || 'Admin'}</h1>
 
-      <div className="charts">
+      <div className={adminDashboardCSS.charts}>
         <h2>Classroom Utilization</h2>
         {renderBarChart(allClassrooms, utilizationData.classrooms, 'Classrooms')}
 

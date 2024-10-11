@@ -1,0 +1,60 @@
+/* Navbar container */
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #1f4e79;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Brand title styling */
+  .navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
+  }
+  
+  /* List of links */
+  .navbar-links {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Each link item */
+  .navbar-links li {
+    margin-left: 20px;
+  }
+  
+  .navbar-links a {
+    text-decoration: none;
+    color: white;
+    font-size: 1rem;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Hover effect on links */
+  .navbar-links a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  /* Sticky navbar shadow effect */
+  .navbar.sticky {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Active link styling */
+  .navbar-links a.active {
+    background-color: rgba(255, 255, 255, 0.3); /* Change this color as needed */
+    color: #fff; /* Maintain text color */
+    font-weight: bold; /* Optional: Make the active link bold */
+  }
+  

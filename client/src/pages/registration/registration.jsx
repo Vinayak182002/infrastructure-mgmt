@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import './registration.css';
+import registrationCSS from './registration.module.css';
 import { useNavigate } from 'react-router-dom';
 import { SERVERHOST } from '../../constant/constant';
 import { toast } from 'react-toastify';
 import axios from 'axios';
-import image from "../../../public/images/register-image.png"; 
+import image from '../../../public/images/register-image.png';
 
 export default function Registration() {
   const [facUser, setfacUser] = useState({
@@ -76,54 +76,59 @@ export default function Registration() {
 
   return (
     <>
-      <div className="registration-container">
-        <div className="registration-card">
+      <div className={registrationCSS['registration-container']}>
+        <div className={registrationCSS['registration-card']}>
           {/* Left Side: Image */}
-          <div className="registration-image">
-            <img src={image} alt="Registration visual" style={{paddingTop:"12vh"}} />
+          <div className={registrationCSS['registration-image']}>
+            <img
+              src={image}
+              alt="Registration visual"
+              style={{ paddingTop: '12vh' }}
+            />
           </div>
           {/* Right Side: Form */}
-          <div className="registration-form">
+          <div className={registrationCSS['registration-form']}>
             <h2>Create Your Account</h2>
             <form onSubmit={handleSubmit}>
-              <div className="form-group">
+              <div className={registrationCSS['form-group']}>
                 <label htmlFor="name">Name</label>
                 <input
                   type="text"
                   id="name"
                   name="name"
-                  className="form-control"
+                  className={registrationCSS['form-control']}
                   placeholder="Enter your name"
                   onChange={handleInput}
                   value={facUser.name}
                 />
               </div>
-              <div className="form-group">
+              <div className={registrationCSS['form-group']}>
                 <label htmlFor="email">Email</label>
                 <input
                   type="email"
                   id="email"
                   name="email"
-                  className="form-control"
+                  className={registrationCSS['form-control']}
                   placeholder="Enter your email"
                   onChange={handleInput}
                   value={facUser.email}
                 />
               </div>
-              <div className="form-group">
+              <div className={registrationCSS['form-group']}>
                 <label htmlFor="password">Password</label>
-                <div className="password-wrapper">
+                <div className={registrationCSS['password-wrapper']}>
+
                   <input
                     type={showPassword ? 'text' : 'password'}
                     id="password"
                     name="password"
-                    className="form-control"
+                    className={registrationCSS['form-control']}
                     placeholder="Enter your password"
                     onChange={handleInput}
                     value={facUser.password}
                   />
                   <span
-                    className="eye-icon"
+                    className={registrationCSS['eye-icon']}
                     onClick={togglePasswordVisibility}
                     style={{ cursor: 'pointer' }}
                   >
@@ -131,7 +136,7 @@ export default function Registration() {
                   </span>
                 </div>
               </div>
-              <button type="submit" className="btn-submit">
+              <button type="submit" className={registrationCSS['btn-submit']}>
                 Register
               </button>
             </form>

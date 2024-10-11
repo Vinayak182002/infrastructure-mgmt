@@ -1,7 +1,7 @@
 import React from 'react';
-import { useState , useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './login.css';
+import adminLoginCSS from './login.module.css';
 import axios from 'axios';
 import { SERVERHOST } from '../../constant/constant';
 import { toast } from 'react-toastify';
@@ -60,10 +60,10 @@ export default function AdminLogin() {
     checkAuthToken();
   }, []);
 
-// Toggle password visibility
-const togglePasswordVisibility = () => {
-  setShowPassword(!showPassword);
-};
+  // Toggle password visibility
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   //   handling form submission
   const handleSubmit = async (e) => {
@@ -87,7 +87,7 @@ const togglePasswordVisibility = () => {
         });
         toast.success('Login Successful!');
         localStorage.setItem('tokenAdmin', response.data.token);
-        navigate("/admin-dashboard");
+        navigate('/admin-dashboard');
       } else {
         toast.error('Invalid Credentials');
       }
@@ -114,38 +114,45 @@ const togglePasswordVisibility = () => {
 
   return (
     <>
-      <div className="login-container admin-login">
-        <div className="login-card">
-          <div className="login-image">
+      <div
+        className={[adminLoginCSS['login-container'], adminLoginCSS['user-login']].join(
+          ' '
+        )}
+      >
+       <div className={adminLoginCSS['login-card']}>
+       <div className={adminLoginCSS['login-image']}>
             <img src="../../../public/images/login-image.png" alt="Login" />
           </div>
-          <div className="login-form">
+          <div className={adminLoginCSS['login-form']}>
             <h2>Admin Login</h2>
             <form onSubmit={handleSubmit}>
-              <div className="form-group">
+              <div className={adminLoginCSS['form-group']}>
                 <label>Email</label>
                 <input
                   name="email"
                   type="email"
-                  className="form-control"
+                  className={adminLoginCSS['form-control']}
                   placeholder="Enter email"
                   value={admin.email}
                   onChange={handleInput}
                 />
               </div>
-              <div className="form-group">
-              <label>Password</label>
-                <div className="password-wrapper">
+              <div className={adminLoginCSS['form-group']}>
+
+                <label>Password</label>
+                <div className={adminLoginCSS['password-wrapper']}>
+
                   <input
                     type={showPassword ? 'text' : 'password'}
                     name="password"
-                    className="form-control"
+                    className={adminLoginCSS['form-control']}
+
                     placeholder="Enter password"
                     value={admin.password}
                     onChange={handleInput}
                   />
                   <span
-                    className="eye-icon"
+                  className={adminLoginCSS['eye-icon']}
                     onClick={togglePasswordVisibility}
                     style={{ cursor: 'pointer' }}
                   >
@@ -153,7 +160,8 @@ const togglePasswordVisibility = () => {
                   </span>
                 </div>
               </div>
-              <button type="submit" className="btn-submit">
+              <button type="submit" className={adminLoginCSS['btn-submit']}
+              >
                 Admin Login
               </button>
             </form>

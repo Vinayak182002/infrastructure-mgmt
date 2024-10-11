@@ -1,0 +1,52 @@
+/* createResource.css or a dedicated CSS file for toast notifications */
+
+/* Toast container styles */
+.Toastify__toast-container {
+    font-family: Arial, sans-serif; /* Choose your preferred font */
+  }
+  
+  /* Toast styles */
+  .Toastify__toast {
+    font-size: 16px; /* Increase font size */
+    padding: 12px 20px; /* Adjust padding for a better look */
+    border-radius: 8px; /* Round corners for a modern look */
+  }
+  
+  /* Success toast style */
+  .Toastify__toast--success {
+    background-color: #4caf50; /* Change to a brighter green */
+    color: white; /* Text color */
+  }
+  
+  /* Error toast style */
+  .Toastify__toast--error {
+    background-color: #f44336; /* Change to a brighter red */
+    color: white; /* Text color */
+  }
+  
+  /* Info toast style */
+  .Toastify__toast--info {
+    background-color: #2196f3; /* Change to a brighter blue */
+    color: white; /* Text color */
+  }
+  
+  /* Warning toast style */
+  .Toastify__toast--warning {
+    background-color: #ff9800; /* Change to a brighter orange */
+    color: white; /* Text color */
+  }
+  
+  /* Close button styles */
+  .Toastify__close-button {
+    font-size: 10px; /* Increase size for better visibility */
+    padding-left: 1px;
+    padding-right: 1px;
+    color: white; /* Close button color */
+    opacity: 0.9; /* Slightly transparent */
+    transition: opacity 0.2s ease; /* Smooth hover effect */
+  }
+  
+  .Toastify__close-button:hover {
+    opacity: 1; /* Fully visible on hover */
+  }
+  

@@ -48,8 +48,8 @@ const createResourceSchema = z.object({
             day: z.enum(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'], { message: "Day must be one of Monday, Tuesday, Wednesday, Thursday, Friday, or Saturday" }),
             slots: z.array(
                 z.object({
-                    startTime: z.string({required_error:"Name is required"}),
-                    endTime: z.string({required_error:"Name is required"}),
+                    startTime: z.string({required_error:"Start Time is required"}),
+                    endTime: z.string({required_error:"End Time is required"}),
                     subject: z.string().optional(),
                     yearOfStudents: z.string().optional(),
                     divisionOfStudents: z.string().optional(),

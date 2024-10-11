@@ -1,0 +1,119 @@
+/* updateResource.css */
+
+.update-resource-container {
+    width: 95%; /* 80% of the viewport width */
+    
+    margin: 0 auto; /* Center the container */
+    padding: 20px; /* Padding for the container */
+    background-color: #f9f9f9; /* Light background */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
+}
+
+h1 {
+    font-size: 2rem; /* Title size */
+    margin-bottom: 20px; /* Spacing below the title */
+    color: #333; /* Dark text color */
+}
+
+form {
+    display: flex; /* Flexbox for form layout */
+    flex-direction: column; /* Vertical layout */
+}
+
+form div {
+    margin-bottom: 15px; /* Spacing between form fields */
+}
+
+label {
+    font-weight: bold; /* Bold label text */
+    margin-bottom: 5px; /* Spacing below labels */
+    color: #555; /* Medium dark text */
+}
+
+input[type="text"],
+input[type="number"] {
+    width: 100%; /* Full width of the container */
+    padding: 10px; /* Inner padding */
+    border: 1px solid #ccc; /* Light border */
+    border-radius: 4px; /* Rounded corners */
+    transition: border 0.3s; /* Smooth transition on focus */
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus {
+    border: 1px solid #007bff; /* Blue border on focus */
+}
+
+h2 {
+    margin-top: 20px; /* Spacing above section headings */
+    color: #333; /* Dark text color */
+}
+
+.table-container {
+    width: 100%; /* Full width of the parent container */
+    margin: 20px 0; /* Vertical spacing around the table */
+}
+
+.schedule-table {
+    width: 100%; /* Table takes full width */
+    border-collapse: collapse; /* Collapse borders */
+    min-width: 600px; /* Minimum width to avoid being too narrow */
+}
+
+.schedule-table th,
+.schedule-table td {
+    border: 1px solid #ddd; /* Light border for table cells */
+    padding: 12px; /* Increased padding for better spacing */
+    text-align: center; /* Center text in cells */
+    font-size: 1rem; /* Font size for table content */
+}
+
+.schedule-table th {
+    background-color: #f2f2f2; /* Light gray background for headers */
+    color: #333; /* Dark text color for headers */
+    font-size: 1.1rem; /* Slightly larger font for headers */
+}
+
+.slot-inputs {
+    display: flex; /* Flexbox for input layout */
+    flex-direction: column; /* Vertical layout of inputs */
+}
+
+.slot-inputs input {
+    margin-bottom: 5px; /* Spacing between inputs */
+    padding: 8px; /* Padding for inputs */
+    width: 90%; /* Width of inputs */
+}
+
+/* Button Styles */
+button[type="button"] {
+    background-color: #dc3545; /* Bootstrap danger color */
+    color: white; /* White text color */
+    border: none; /* No border */
+    border-radius: 4px; /* Rounded corners */
+    padding: 8px 12px; /* Inner padding */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Smooth transition */
+    font-size: 0.9rem; /* Font size */
+}
+
+button[type="button"]:hover {
+    background-color: #c82333; /* Darker red on hover */
+}
+
+button[type="submit"] {
+    background-color: #007bff; /* Bootstrap primary color */
+    color: white; /* White text color */
+    border: none; /* No border */
+    border-radius: 4px; /* Rounded corners */
+    padding: 10px 15px; /* Inner padding */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 1rem; /* Font size */
+    margin-top: 20px; /* Spacing above submit button */
+    width: auto;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}

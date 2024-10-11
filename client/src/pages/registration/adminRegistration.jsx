@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './adminRegistration.css';
+import adminRegistrationCSS from './adminRegistration.module.css';
 import { useNavigate } from 'react-router-dom';
 import { SERVERHOST } from '../../constant/constant';
 import { toast } from 'react-toastify';
@@ -80,10 +80,10 @@ export default function AdminRegistration() {
 
   return (
     <>
-      <div className="admin-registration-container">
-        <div className="admin-registration-card">
+      <div className={adminRegistrationCSS['admin-registration-container']}>
+        <div className={adminRegistrationCSS['admin-registration-card']}>
           {/* Left Side: Image */}
-          <div className="admin-registration-image">
+          <div className={adminRegistrationCSS['admin-registration-image']}>
             <img
               src="/images/admin-register-image.png"
               alt="Admin registration visual"
@@ -91,47 +91,52 @@ export default function AdminRegistration() {
           </div>
 
           {/* Right Side: Form */}
-          <div className="admin-registration-form">
+          <div className={adminRegistrationCSS['admin-registration-form']}>
             <h2>Admin Account</h2>
             <form onSubmit={handleSubmit}>
-              <div className="form-group">
+              <div className={adminRegistrationCSS['form-group']}>
                 <label htmlFor="name">Name</label>
                 <input
                   type="text"
                   name="name"
                   id="name"
-                  className="form-control"
+                  className={adminRegistrationCSS['form-control']}
                   placeholder="Enter your name"
                   value={admin.name}
                   onChange={handleInput}
                 />
               </div>
-              <div className="form-group">
+              <div className={adminRegistrationCSS['form-group']}>
+
                 <label htmlFor="email">Email</label>
                 <input
                   type="email"
                   id="email"
                   name="email"
-                  className="form-control"
+                  className={adminRegistrationCSS['form-control']}
+
                   placeholder="Enter your email"
                   value={admin.email}
                   onChange={handleInput}
                 />
               </div>
-              <div className="form-group">
+              <div className={adminRegistrationCSS['form-group']}>
+
                 <label htmlFor="password">Password</label>
-                <div className="password-wrapper">
+                <div className={adminRegistrationCSS['password-wrapper']}>
                   <input
                     type={showPassword ? 'text' : 'password'}
                     id="password"
                     name="password"
-                    className="form-control"
+                    className={adminRegistrationCSS['form-control']}
+
                     placeholder="Enter your password"
                     onChange={handleInput}
                     value={admin.password}
                   />
                   <span
-                    className="eye-icon"
+                                     className={adminRegistrationCSS['eye-icon']}
+
                     onClick={togglePasswordVisibility}
                     style={{ cursor: 'pointer' }}
                   >
@@ -139,7 +144,8 @@ export default function AdminRegistration() {
                   </span>
                 </div>
               </div>
-              <button type="submit" className="btn-submit">
+              <button type="submit"                   className={adminRegistrationCSS['btn-submit']}
+              >
                 Register as Admin
               </button>
             </form>

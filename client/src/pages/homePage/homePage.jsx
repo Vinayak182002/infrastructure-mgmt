@@ -7,7 +7,8 @@ import { toast } from 'react-toastify';
 import Modal from 'react-modal';
 import { Chart, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
-import './homePage.css'; // Import your CSS file for styling
+// import homePageCSS from './homePage.module.css'
+import './homePage.css';
 
 // Register necessary Chart.js components
 Chart.register(ArcElement, Tooltip, Legend);
@@ -141,7 +142,7 @@ export default function HomePage() {
           </select>
         </label>
 
-        <button type="submit">Submit</button>
+        <button className='submit-btn' type="submit">Submit</button>
       </form>
 
       {showTable && (
@@ -189,7 +190,7 @@ export default function HomePage() {
                             onClick={() =>
                               handleBookingSubmit(slot, daySchedule.day)
                             }
-                            className="btn btn-primary"
+                            className="book-btn btn btn-primary"
                           >
                             Book this slot
                           </button>
