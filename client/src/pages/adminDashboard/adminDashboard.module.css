@@ -6,19 +6,23 @@
 .admin-dashboard h1 {
   font-size: 2rem;
   margin-bottom: 20px;
+  text-align: center; /* Center align for better presentation */
 }
 
+/* Flexbox for charts section */
 .charts {
   display: flex;
   flex-direction: column;
   gap: 20px; /* Space between charts */
 }
 
+/* Headings for each chart */
 .charts h2 {
   font-size: 1.5rem;
   margin-bottom: 10px;
 }
 
+/* Chart container styles */
 .chart-container {
   overflow-x: auto; /* Allow horizontal scrolling */
   padding: 10px;
@@ -27,13 +31,49 @@
   border-radius: 8px; /* Rounded corners */
 }
 
+/* Responsive chart canvas */
 .chart-container canvas {
-  min-width: 600px; /* Minimum width for the chart */
+  min-width: 300px; /* Minimum width for the chart */
+  width: 100%; /* Full width on all screen sizes */
   max-width: 100%; /* Ensure chart doesn't overflow the container */
+  height: 300px; /* Fixed height to maintain aspect ratio */
 }
 
-@media (min-width: 768px) {
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .admin-dashboard h1 {
+    font-size: 1.8rem; /* Adjust heading size for mobile */
+  }
+
+  .charts h2 {
+    font-size: 1.2rem; /* Smaller heading size for charts on mobile */
+  }
+
+  .chart-container {
+    padding: 5px; /* Reduce padding on smaller screens */
+  }
+
+  .chart-container canvas {
+    height: 250px; /* Smaller height for mobile */
+  }
+}
+
+@media (min-width: 769px) {
   .charts {
     flex-direction: column; /* Keep charts stacked in larger screens */
+  }
+}
+
+@media (min-width: 1024px) {
+  .admin-dashboard h1 {
+    font-size: 2.5rem; /* Larger heading size for desktops */
+  }
+
+  .charts h2 {
+    font-size: 1.8rem; /* Increase heading size for desktop */
+  }
+
+  .chart-container canvas {
+    height: 400px; /* Taller height for larger screens */
   }
 }

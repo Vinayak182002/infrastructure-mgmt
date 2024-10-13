@@ -3,10 +3,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* Full viewport height */
+  min-height: 100vh; /* Full viewport height */
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   overflow: hidden; /* Prevents scrolling */
-  padding: 0 20px; /* Adds padding to ensure content doesn't hit the edges */
+  padding: 20px; /* Adds padding for mobile */
 }
 
 /* Registration card for overall layout */
@@ -14,35 +14,39 @@
   display: flex;
   max-width: 900px;
   width: 100%;
-  max-height: 90vh; /* Limits the height of the card to avoid overflow */
   background: white;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   overflow: hidden;
 }
 
+/* For larger screens, stack image and form horizontally */
+@media (min-width: 769px) {
+  .registration-card {
+    flex-direction: row; /* Stack image and form horizontally */
+  }
+}
+
 /* Left side: Image */
 .registration-image {
-  flex: 1;
-  width:100%;
-  height:100%;
+  flex: 1; /* Allow flex-grow */
+  width: 100%; /* Full width on all screen sizes */
+  height: auto; /* Maintain aspect ratio */
 }
 
 .registration-image img {
   width: 100%;
-  height: 100%; 
-  object-fit:cover;
+  height: auto; /* Maintain aspect ratio */
+  object-fit: cover;
 }
 
 /* Right side: Form */
 .registration-form {
-  flex: 1;
-  padding: 30px; /* Adjusted padding to ensure fit within the viewport */
+  flex: 1; /* Allow flex-grow */
+  padding: 30px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  max-height: 90vh; /* Ensures the form fits within the card */
-  overflow-y: auto; /* Allows form content to scroll internally if necessary */
 }
 
 .registration-form h2 {
@@ -53,6 +57,7 @@
   color: #333;
 }
 
+/* Form styling */
 .form-group {
   margin-bottom: 20px;
 }
@@ -103,7 +108,7 @@
 
 .password-wrapper input {
   width: 100%;
-  padding-right: 30px; /* To prevent text overlap with the eye icon */
+  padding-right: 30px; /* Prevent text overlap with the eye icon */
 }
 
 .eye-icon {
@@ -114,3 +119,14 @@
   font-size: 18px; /* Adjust the icon size */
 }
 
+/* Responsive Design */
+@media (max-width: 768px) {
+  .registration-card {
+    flex-direction: column; /* Stack image and form vertically on small screens */
+    max-height: none; /* Remove height constraint */
+  }
+
+  .registration-form h2 {
+    font-size: 1.8rem; /* Adjust title size for smaller screens */
+  }
+}

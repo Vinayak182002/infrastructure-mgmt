@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 
 export default function AdminNavbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // State to control menu visibility
   const navigate = useNavigate(); // To navigate after logout
   const location = useLocation(); // Get the current location
 
@@ -32,7 +33,6 @@ export default function AdminNavbar() {
   useEffect(() => {
     const checkAuthToken = async () => {
       const authtoken = localStorage.getItem('tokenAdmin');
-      // console.log('Retrieved token:', authtoken);
       if (authtoken) {
         await login_Check(authtoken);
       } else {
@@ -43,28 +43,35 @@ export default function AdminNavbar() {
   }, [navigate]);
 
   const handleLogout = () => {
-    // Clear the token from local storage
     localStorage.removeItem('tokenAdmin');
-
-    // Set isLoggedIn to false
     setIsLoggedIn(false);
-
-    // Redirect the user to the login page
     toast.success('Logged out successfully!');
     navigate('/admin-login');
+    setIsMenuOpen(false); // Close the menu after logging out
+  };
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen); // Toggle the menu visibility
+  };
+
+  const handleLinkClick = () => {
+    setIsMenuOpen(false); // Close the menu when a link is clicked
   };
 
   return (
     <nav className={adminNavbarCSS.navbar}>
       <div className={adminNavbarCSS['navbar-brand']}>InfraMGMT-ADMIN</div>
-      <ul className={adminNavbarCSS['navbar-links']}>
-        {/* Show Register and Login links if user is not logged in */}
+      <div className={adminNavbarCSS.hamburger} onClick={toggleMenu}>
+        &#9776; {/* Hamburger icon */}
+      </div>
+      <ul className={`${adminNavbarCSS['navbar-links']} ${isMenuOpen ? adminNavbarCSS.open : ''}`}>
         {!isLoggedIn ? (
           <>
             <li>
               <Link
                 to="/admin-register"
                 className={`${location.pathname === '/admin-register' ? adminNavbarCSS.active : ''}`}
+                onClick={handleLinkClick}
               >
                 Register
               </Link>
@@ -73,6 +80,7 @@ export default function AdminNavbar() {
               <Link
                 to="/admin-login"
                 className={`${location.pathname === '/admin-login' ? adminNavbarCSS.active : ''}`}
+                onClick={handleLinkClick}
               >
                 Login
               </Link>
@@ -84,6 +92,7 @@ export default function AdminNavbar() {
               <Link
                 to="/admin-dashboard"
                 className={`${location.pathname === '/admin-dashboard' ? adminNavbarCSS.active : ''}`}
+                onClick={handleLinkClick}
               >
                 Home
               </Link>
@@ -92,6 +101,7 @@ export default function AdminNavbar() {
               <Link
                 to="/admin-classrooms"
                 className={`${location.pathname === '/admin-classrooms' ? adminNavbarCSS.active : ''}`}
+                onClick={handleLinkClick}
               >
                 All Classrooms
               </Link>
@@ -100,6 +110,7 @@ export default function AdminNavbar() {
               <Link
                 to="/admin-labs"
                 className={`${location.pathname === '/admin-labs' ? adminNavbarCSS.active : ''}`}
+                onClick={handleLinkClick}
               >
                 All Labs
               </Link>
@@ -108,6 +119,7 @@ export default function AdminNavbar() {
               <Link
                 to="/admin-halls"
                 className={`${location.pathname === '/admin-halls' ? adminNavbarCSS.active : ''}`}
+                onClick={handleLinkClick}
               >
                 All Halls
               </Link>
@@ -116,17 +128,18 @@ export default function AdminNavbar() {
               <Link
                 to="/admin-create-resource"
                 className={`${location.pathname === '/admin-create-resource' ? adminNavbarCSS.active : ''}`}
+                onClick={handleLinkClick}
               >
                 Create Resource
               </Link>
             </li>
 
-            {/* Conditionally render "Updating Resource" link */}
             {location.pathname.startsWith('/admin-update-resource') && (
               <li>
                 <Link
                   to="/admin-update-resource"
                   className={`${location.pathname.startsWith('/admin-update-resource') ? adminNavbarCSS.active : ''}`}
+                  onClick={handleLinkClick}
                 >
                   Updating Resource
                 </Link>
@@ -138,6 +151,7 @@ export default function AdminNavbar() {
                 <Link
                   to="/admins-update-resources-fault"
                   className={`${location.pathname.startsWith('/admins-update-resources-fault') ? adminNavbarCSS.active : ''}`}
+                  onClick={handleLinkClick}
                 >
                   Updating Status
                 </Link>
@@ -148,6 +162,7 @@ export default function AdminNavbar() {
               <Link
                 to="/admin-resource-faults"
                 className={`${location.pathname === '/admin-resource-faults' ? adminNavbarCSS.active : ''}`}
+                onClick={handleLinkClick}
               >
                 Resource Faults
               </Link>
@@ -156,6 +171,7 @@ export default function AdminNavbar() {
               <Link
                 to="/admin-profile"
                 className={`${location.pathname === '/admin-profile' ? adminNavbarCSS.active : ''}`}
+                onClick={handleLinkClick}
               >
                 Profile
               </Link>

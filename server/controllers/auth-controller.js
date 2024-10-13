@@ -439,7 +439,6 @@ const lookForFreeSlot = async (req, res) => {
       }
     });
 
-    console.log(resources);
     if (!resources) {
       return res
         .status(404)

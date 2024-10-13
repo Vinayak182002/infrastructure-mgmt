@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 
 export default function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // State to control menu visibility
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -46,12 +47,24 @@ export default function Navbar() {
     setIsLoggedIn(false);
     toast.success('Logged out successfully!');
     navigate('/login');
+    setIsMenuOpen(false); // Close menu after logout
+  };
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen); // Toggle the menu visibility
+  };
+
+  const handleLinkClick = () => {
+    setIsMenuOpen(false); // Close the menu when a link is clicked
   };
 
   return (
     <nav className={navbarCSS.navbar}> {/* Apply CSS module here */}
       <div className={navbarCSS['navbar-brand']}>InfraMGMT</div>
-      <ul className={navbarCSS['navbar-links']}>
+      <div className={navbarCSS.hamburger} onClick={toggleMenu}>
+        &#9776; {/* Hamburger icon */}
+      </div>
+      <ul className={`${navbarCSS['navbar-links']} ${isMenuOpen ? navbarCSS.open : ''}`}>
         {/* Show Register and Login links if user is not logged in */}
         {!isLoggedIn ? (
           <>
@@ -59,6 +72,7 @@ export default function Navbar() {
               <Link
                 to="/register"
                 className={location.pathname === '/register' ? navbarCSS.active : ''}
+                onClick={handleLinkClick} // Close menu on link click
               >
                 Register
               </Link>
@@ -67,6 +81,7 @@ export default function Navbar() {
               <Link
                 to="/login"
                 className={location.pathname === '/login' ? navbarCSS.active : ''}
+                onClick={handleLinkClick} // Close menu on link click
               >
                 Login
               </Link>
@@ -78,6 +93,7 @@ export default function Navbar() {
               <Link
                 to="/dashboard"
                 className={location.pathname === '/dashboard' ? navbarCSS.active : ''}
+                onClick={handleLinkClick} // Close menu on link click
               >
                 Home
               </Link>
@@ -87,6 +103,7 @@ export default function Navbar() {
               <Link
                 to="/look-free-slots"
                 className={location.pathname === '/look-free-slots' ? navbarCSS.active : ''}
+                onClick={handleLinkClick} // Close menu on link click
               >
                 Book Free Slots
               </Link>
@@ -98,6 +115,7 @@ export default function Navbar() {
                 className={
                   location.pathname === '/report-resource-fault' ? navbarCSS.active : ''
                 }
+                onClick={handleLinkClick} // Close menu on link click
               >
                 Report Resource Fault
               </Link>
@@ -106,6 +124,7 @@ export default function Navbar() {
               <Link
                 to="/profile"
                 className={location.pathname === '/profile' ? navbarCSS.active : ''}
+                onClick={handleLinkClick} // Close menu on link click
               >
                 Profile
               </Link>
@@ -117,6 +136,7 @@ export default function Navbar() {
                 <Link
                   to="/booking-slot"
                   className={location.pathname === '/booking-slot' ? navbarCSS.active : ''}
+                  onClick={handleLinkClick} // Close menu on link click
                 >
                   Booking Slot
                 </Link>

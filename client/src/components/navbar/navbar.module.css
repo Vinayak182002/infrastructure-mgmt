@@ -57,3 +57,45 @@
   color: #fff; /* Maintain text color */
   font-weight: bold; /* Optional: Make the active link bold */
 }
+
+/* Hide links on small screens and show hamburger menu */
+.hamburger {
+  display: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .navbar-links {
+    display: none; /* Hide links on small screens */
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background-color: #1f4e79;
+    width: 100%;
+    height: calc(100vh - 60px);
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease-in-out;
+  }
+
+  /* When the links are open, show them */
+  .navbar-links.open {
+    display: flex;
+  }
+
+  .navbar-links li {
+    margin: 10px 0; /* More margin between links */
+  }
+
+  /* Show the hamburger menu */
+  .hamburger {
+    display: block;
+  }
+
+  .navbar-brand {
+    font-size: 1.2rem; /* Reduce brand size on smaller screens */
+  }
+}

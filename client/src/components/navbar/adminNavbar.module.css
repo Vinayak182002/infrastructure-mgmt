@@ -1,60 +1,101 @@
 /* Navbar container */
 .navbar {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #1f4e79;
-    color: white;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Brand title styling */
-  .navbar-brand {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #fff;
-  }
-  
-  /* List of links */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #1f4e79;
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Brand title styling */
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+/* List of links */
+.navbar-links {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+/* Each link item */
+.navbar-links li {
+  margin-left: 20px;
+}
+
+.navbar-links a {
+  text-decoration: none;
+  color: white;
+  font-size: 1rem;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover effect on links */
+.navbar-links a:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Sticky navbar shadow effect */
+.navbar.sticky {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Active link styling */
+.navbar-links a.active {
+  background-color: rgba(255, 255, 255, 0.3); /* Change this color as needed */
+  color: #fff; /* Maintain text color */
+  font-weight: bold; /* Optional: Make the active link bold */
+}
+
+/* Hide links on small screens and show hamburger menu */
+.hamburger {
+  display: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: white;
+}
+
+@media (max-width: 768px) {
   .navbar-links {
-    list-style: none;
+    display: none; /* Hide links on small screens */
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background-color: #1f4e79;
+    width: 100%;
+    height: calc(100vh - 60px);
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease-in-out;
+  }
+
+  /* When the links are open, show them */
+  .navbar-links.open {
     display: flex;
-    margin: 0;
-    padding: 0;
   }
-  
-  /* Each link item */
+
   .navbar-links li {
-    margin-left: 20px;
+    margin: 10px 0; /* More margin between links */
   }
-  
-  .navbar-links a {
-    text-decoration: none;
-    color: white;
-    font-size: 1rem;
-    padding: 8px 12px;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
+
+  /* Show the hamburger menu */
+  .hamburger {
+    display: block;
   }
-  
-  /* Hover effect on links */
-  .navbar-links a:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+
+  .navbar-brand {
+    font-size: 1.2rem; /* Reduce brand size on smaller screens */
   }
-  
-  /* Sticky navbar shadow effect */
-  .navbar.sticky {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Active link styling */
-  .navbar-links a.active {
-    background-color: rgba(255, 255, 255, 0.3); /* Change this color as needed */
-    color: #fff; /* Maintain text color */
-    font-weight: bold; /* Optional: Make the active link bold */
-  }
-  
+}
