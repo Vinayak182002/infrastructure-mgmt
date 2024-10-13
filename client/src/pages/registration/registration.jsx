@@ -45,7 +45,7 @@ export default function Registration() {
       console.log(response);
 
       if (response.request.statusText === 'OK') {
-        console.log('in response .ok');
+        // console.log('in response .ok');
 
         setfacUser({
           name: '',

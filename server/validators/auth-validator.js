@@ -71,7 +71,8 @@ const bookingSchema = z.object({
     day: z.enum(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'], {
         required_error: "Day is required."
     }),
-    startTime: z.string().regex(/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/, "Start time must be in HH:MM format."),
+    startTime: z.string().regex(/^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/
+, "Start time must be in HH:MM format."),
     subject: z.string().min(1, "Subject name is required."),
     yearOfStudents: z.string().min(1, "Year of Students is required."),
     divisionOfStudents: z.string().min(1, "Division of Students is required."),
@@ -96,7 +97,6 @@ const faultReportSchema = z.object({
 
 //slot free zod schema
 const freeSlotSchema = z.object({
-    resourceName: z.string().min(1, "Resource name is required."),
     day: z.enum(["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]),
     startTime: z.string().regex(/^\d{2}:\d{2}$/, "Start time must be in HH:MM format.")
 });

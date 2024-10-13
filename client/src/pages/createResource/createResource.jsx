@@ -108,7 +108,7 @@ const CreateResource = () => {
           },
         }
       );
-      console.log(response);
+      // console.log(response);
       if (response.request.status === 200) {
         toast.success('Resource Created Successfully!!');
         navigate('/admin-dashboard');

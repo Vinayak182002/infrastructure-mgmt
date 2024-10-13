@@ -52,7 +52,7 @@ export default function AdminLogin() {
   useEffect(() => {
     const checkAuthToken = async () => {
       const authtoken = localStorage.getItem('tokenAdmin');
-      console.log('authtoken value: ', authtoken);
+      // console.log('authtoken value: ', authtoken);
       if (authtoken) {
         await login_Check(authtoken);
       }

@@ -39,7 +39,7 @@ export default function Login() {
   useEffect(() => {
     const checkAuthToken = async () => {
       const authtoken = localStorage.getItem('token');
-      console.log('authtoken value: ', authtoken);
+      // console.log('authtoken value: ', authtoken);
       if (authtoken) {
         await login_Check(authtoken);
       }

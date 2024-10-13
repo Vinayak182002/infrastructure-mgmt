@@ -8,15 +8,17 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <AppWrapper />
     <ToastContainer
-      position="top-right"
-      autoClose={1500}
-      hideProgressBar={false}
-      closeOnClick
-      // rtl={false}
-      pauseOnFocusLoss
-      draggable
-      pauseOnHover
-      theme="colored"
+    position="top-right"
+    autoClose={5000}
+    hideProgressBar={false}
+    newestOnTop={false}
+    closeOnClick
+    rtl={false}
+    pauseOnFocusLoss
+    draggable
+    pauseOnHover
+    theme="colored"
+    transition: Bounce
     />
   </StrictMode>
 );

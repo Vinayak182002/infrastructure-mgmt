@@ -20,6 +20,7 @@ import UpdateResource from './pages/updateResource/updateResource';
 import AdminProfile from './pages/profile/adminProfile';
 import SeeResourceFaults from './pages/resourceFaults/seeResourceFaults';
 import UpdateResourceFault from './pages/resourceFaults/updateResourceFault';
+import FreeSlots from './pages/freeSlots/freeSlot';
 
 const App = () => {
   const location = useLocation(); // Get the current location
@@ -74,6 +75,14 @@ const App = () => {
           element={
             <AuthCheck>
               <ReportFault />
+            </AuthCheck>
+          }
+        />
+        <Route
+          path="/look-free-slots"
+          element={
+            <AuthCheck>
+              <FreeSlots />
             </AuthCheck>
           }
         />

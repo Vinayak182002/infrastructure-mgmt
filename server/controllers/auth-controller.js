@@ -8,7 +8,7 @@ const home = async (req, res) => {
   try {
     // Get user details from the request (assuming the user is added to req.user by your authentication middleware)
     const user = req.user;
-    console.log(user);
+    // console.log(user);
 
     // Get resource name from request parameters or body
     const resourceName = req.params.resourceName || req.body.resourceName;
@@ -45,7 +45,7 @@ const home = async (req, res) => {
 const register = async (req, res) => {
   try {
     // res.status(200).send("this is register controller");
-    console.log(req.body);
+    // console.log(req.body);
     const { name, email, password } = req.body;
     const facUserExist = await facUser.findOne({ email });
     if (facUserExist) {
@@ -290,7 +290,9 @@ const updateResource = async (req, res) => {
         resource: resource,
       });
     } else {
-      return res.status(400).json({ message: "You are updating wron resource" });
+      return res
+        .status(400)
+        .json({ message: "You are updating wron resource" });
     }
   } catch (error) {
     console.error(error);
@@ -318,6 +320,7 @@ const bookSlot = async (req, res) => {
   } = req.body;
   try {
     // Find the resource by name
+    // console.log(startTime);
     const resource = await Resource.findOne({ name: resourceName });
     // console.log(resource);
     if (!resource) {
@@ -418,53 +421,34 @@ const bookSlot = async (req, res) => {
 
 // Slot free controller start
 // will be accessed only by the admin
-const freeSlot = async (req, res) => {
+const lookForFreeSlot = async (req, res) => {
   try {
-    const { resourceName, day, startTime } = req.body;
-
+    const { day, startTime} = req.body;
     // Find the resource by name
-    const resource = await Resource.findOne({ name: resourceName });
-    if (!resource) {
-      return res.status(404).json({ message: "Resource not found." });
-    }
+    const resources = await Resource.find({
+      weeklySchedule: {
+        $elemMatch: {
+          day: day, // Match the desired day
+          slots: {
+            $elemMatch: {
+              startTime: startTime, // Match the specific startTime
+              isBooked: false,  // Ensure slot is not booked
+            }
+          }
+        }
+      }
+    });
 
-    // Find the specific day in the weekly schedule
-    const daySchedule = resource.weeklySchedule.find(
-      (schedule) => schedule.day === day
-    );
-
-    if (!daySchedule) {
-      return res.status(404).json({ message: "Day schedule not found." });
-    }
-
-    // Find the specific slot to free
-    const slot = daySchedule.slots.find((slot) => slot.startTime === startTime);
-
-    if (!slot) {
-      return res.status(404).json({ message: "Slot not found." });
-    }
-
-    // Check if the slot is booked by admin
-    if (slot.bookedByAdmin === false) {
+    console.log(resources);
+    if (!resources) {
       return res
-        .status(400)
-        .json({ message: "Slot is already free and not booked by admin." });
+        .status(404)
+        .json({ message: "Free Resource with this slot not found." });
     }
 
-    // Free the slot by resetting its properties
-    slot.subject = "";
-    slot.yearOfStudents = "";
-    slot.divisionOfStudents = "";
-    slot.batchOfStudents = "";
-    slot.branchOfStudents = "";
-    slot.facultyName = "";
-    slot.isBooked = false;
-    slot.bookedByAdmin = false;
-
-    // Save the updated resource
-    await resource.save();
-
-    return res.status(200).json({ message: "Slot freed successfully." });
+    return res
+      .status(200)
+      .json({ message: "Slots found successfully.", resources});
   } catch (error) {
     console.error(error);
     return res
@@ -600,14 +584,14 @@ const updateResourceFault = async (req, res) => {
 
     // Update fault status and resolution details
     const status = faultReport.status;
-    
+
     if (status === "Pending") {
-      faultReport.status = "Resolved",
-      faultReport.resolutionDetails = {
-        resolvedBy,
-        resolvedAt: new Date(),
-        remarks,
-      };
+      (faultReport.status = "Resolved"),
+        (faultReport.resolutionDetails = {
+          resolvedBy,
+          resolvedAt: new Date(),
+          remarks,
+        });
     }
 
     // Save the updated fault report
@@ -627,13 +611,12 @@ const updateResourceFault = async (req, res) => {
 
 //fault report update cotroller end
 
-
 // get all resource faults
 //fault report update cotroller start
 const getResourceFaults = async (req, res) => {
   try {
-    const faultReportsPending = await FaultReport.find({status : "Pending"});
-    const faultReportsResolved = await FaultReport.find({status : "Resolved"});
+    const faultReportsPending = await FaultReport.find({ status: "Pending" });
+    const faultReportsResolved = await FaultReport.find({ status: "Resolved" });
 
     if (!faultReportsPending && !faultReportsResolved) {
       return res.status(400).json({ message: "Fault reports not found." });
@@ -650,8 +633,6 @@ const getResourceFaults = async (req, res) => {
       .json({ message: "Server error while updating fault status." });
   }
 };
-
-
 
 // admin register controller logic
 const adminRegister = async (req, res) => {
@@ -713,7 +694,7 @@ module.exports = {
   user,
   createResource,
   bookSlot,
-  freeSlot,
+  lookForFreeSlot,
   calculateUtilization,
   reportResourceFault,
   updateResourceFault,

@@ -82,7 +82,7 @@ const UpdateResource = () => {
 
   const handleUpdate = async (e) => {
     e.preventDefault();
-    console.log("Form Data before update:", formData); // Log form data
+    // console.log("Form Data before update:", formData); // Log form data
     try {
       // Send the updated data to the backend
       const response = await axios.post(
@@ -248,7 +248,7 @@ const UpdateResource = () => {
                             type="button"
                             onClick={() => handleFreeSlot(dayIndex, slotIndex)}
                           >
-                            Free Slot
+                            Clear this Slot
                           </button>
                         )}
                       </div>

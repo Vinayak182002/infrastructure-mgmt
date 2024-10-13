@@ -85,6 +85,15 @@ export default function Navbar() {
 
             <li>
               <Link
+                to="/look-free-slots"
+                className={location.pathname === '/look-free-slots' ? navbarCSS.active : ''}
+              >
+                Book Free Slots
+              </Link>
+            </li>
+
+            <li>
+              <Link
                 to="/report-resource-fault"
                 className={
                   location.pathname === '/report-resource-fault' ? navbarCSS.active : ''

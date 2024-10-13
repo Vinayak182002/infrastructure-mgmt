@@ -15,7 +15,6 @@ const BookingFormPage = () => {
   const location = useLocation();
   const { resourceName, startTime, endTime, facultyName, dayOfSlot } =
     location.state || {};
-
   const [bookingData, setBookingData] = useState({
     resourceName: resourceName,
     startTime: startTime,

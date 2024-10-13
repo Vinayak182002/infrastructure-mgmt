@@ -32,7 +32,7 @@ export default function AdminNavbar() {
   useEffect(() => {
     const checkAuthToken = async () => {
       const authtoken = localStorage.getItem('tokenAdmin');
-      console.log('Retrieved token:', authtoken);
+      // console.log('Retrieved token:', authtoken);
       if (authtoken) {
         await login_Check(authtoken);
       } else {

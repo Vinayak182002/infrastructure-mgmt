@@ -68,6 +68,7 @@ export default function HomePage() {
   };
 
   const handleBookingSubmit = (slot, day) => {
+    // console.log(slot.startTime);
     navigate('/booking-slot', {
       state: {
         resourceName: resourceDetails.name,
